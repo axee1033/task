@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -63,17 +63,20 @@ class ApiService {
       }
 
       //Parse response
-      final dataModel = ResponseModel.fromJson(response.data);
+      final dataModel =
+          ResponseModel.fromJson(response.data['result'] ?? response.data);
 
       // ignore: unrelated_type_equality_checks
 
       if (dataModel.dataSet == null) {
         Fluttertoast.showToast(msg: dataModel.responseMessage);
       }
+
       if (response.data['totalAmount'] != null) {
         log(response.data['totalAmount']);
-        HomeContolerr().totalAmount = response.data['totalAmount'];
+        HomeContolerr().totalAmount = int.parse(response.data['totalAmount']);
       }
+
       log("value ${dataModel.dataSet}");
       return dataModel.dataSet;
     } catch (e) {

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class ResponseModel {
   final int responseCode;
   final String responseMessage;
@@ -7,9 +9,11 @@ class ResponseModel {
     required this.responseMessage,
     required this.dataSet,
   });
-  factory ResponseModel.fromJson(final json) => ResponseModel(
-        responseCode: json['result']["responseCode"],
-        responseMessage: json['result']["responseMessage"],
-        dataSet: json['result']["dateSet"],
-      );
+  factory ResponseModel.fromJson(final json) {
+    return ResponseModel(
+      responseCode: json["responseCode"],
+      responseMessage: json["responseMessage"],
+      dataSet: json["dateSet"],
+    );
+  }
 }
